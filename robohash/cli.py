@@ -1,6 +1,7 @@
 import argparse
 import io
 import sys
+import random
 from robohash import Robohash
 
 
@@ -18,9 +19,14 @@ def main():
   
   robohash = Robohash(args.text)
   robohash.assemble(roboset=args.set, bgset=args.bgset,
-  					sizex=args.width, sizey=args.height)
+          sizex=args.width, sizey=args.height, rfunc=random_func)
   
   robohash.img.save(args.output, format=args.format)
+  robohash.mom_img.save(f"mom_{args.output}", format=args.format)
+  robohash.dad_img.save(f"dad_{args.output}", format=args.format)
+
+def random_func():
+    return random.random() < 0.5
 
 if __name__ == "__main__":
     main()
