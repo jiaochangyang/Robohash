@@ -17,11 +17,11 @@ def main():
   
   args = parser.parse_args()
   
-  robohash = Robohash(args.text)
+  robohash = Robohash(args.text, random_func)
   robohash.assemble(roboset=args.set, bgset=args.bgset,
-          sizex=args.width, sizey=args.height, rfunc=random_func)
+          sizex=args.width, sizey=args.height)
   
-  robohash.img.save(args.output, format=args.format)
+  robohash.child_img.save(args.output, format=args.format)
   robohash.mom_img.save(f"mom_{args.output}", format=args.format)
   robohash.dad_img.save(f"dad_{args.output}", format=args.format)
 
