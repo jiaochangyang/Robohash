@@ -317,7 +317,7 @@ class ImgHandler(tornado.web.RequestHandler):
                 args['avatar'] = False
 
         # Create our Robohashing object
-        r = Robohash(string)
+        r = Robohash(string, rfunc=(lambda: random.random() < 0.5))
 
 
         # Allow users to manually specify a robot 'set' that they like.
@@ -331,7 +331,7 @@ class ImgHandler(tornado.web.RequestHandler):
 
             # Adding cats and people per submitted/requested code, but I don't want to change existing hashes for set=any
             # so we'll ignore those sets for the 'any' config.
-            roboset = r.sets[r.hasharray[1] % (len(r.sets)-2) ]
+            roboset = r.sets[r.hasharray[1][0] % (len(r.sets)-2) ]
         else:
             roboset = r.sets[0]
 
@@ -343,7 +343,7 @@ class ImgHandler(tornado.web.RequestHandler):
             if tmpset in r.sets:
                 possiblesets.append(tmpset)
         if possiblesets:
-            roboset = possiblesets[r.hasharray[1] % len(possiblesets) ]
+            roboset = possiblesets[r.hasharray[1][0] % len(possiblesets) ]
 
 
         # Only set1 is setup to be color-seletable. The others don't have enough pieces in various colors.
@@ -356,7 +356,7 @@ class ImgHandler(tornado.web.RequestHandler):
 
         # If they DID choose set1, randomly choose a color.
         if roboset == 'set1' and color is None:
-            color = r.colors[r.hasharray[0] % len(r.colors) ]
+            color = r.colors[r.hasharray[0][0] % len(r.colors) ]
             roboset = 'set1'
 
         # Allow them to set a background, or keep as None
@@ -368,15 +368,15 @@ class ImgHandler(tornado.web.RequestHandler):
         self.set_header("Cache-Control", "public,max-age=31536000")
 
         # Build our Robot.
-        r.assemble(roboset=roboset,format=format,bgset=bgset,color=color,sizex=sizex,sizey=sizey)
+        r.assemble(roboset=roboset,format=format,bgset=bgset,sizex=sizex,sizey=sizey)
 
         # Print the Robot to the handler, as a file-like obj
         if r.format != 'datauri':
-            r.img.save(self,format=r.format)
+            r.child_img.save(self,format=r.format)
         else:
             # Or, if requested, base64 encode first.
             fakefile = io.BytesIO()
-            r.img.save(fakefile,format='PNG')
+            r.child_img.save(fakefile,format='PNG')
             fakefile.seek(0)
             b64ver = base64.b64encode(fakefile.read())
             b64ver = b64ver.decode('utf-8')
