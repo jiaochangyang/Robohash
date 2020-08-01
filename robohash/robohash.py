@@ -25,8 +25,11 @@ class Robohash():
         mom = mom.encode("utf-8")
         dad = dad.encode("utf-8")
 
-        momhex = hashlib.sha512(mom).hexdigest()
-        dadhex = hashlib.sha512(dad).hexdigest()
+        #momhex = hashlib.sha512(mom).hexdigest()
+        #dadhex = hashlib.sha512(dad).hexdigest()
+
+        momhex = mom
+        dadhex = dad
         # momhex = mom
         # dadhex = dad
 

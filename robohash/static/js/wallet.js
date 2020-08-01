@@ -153,9 +153,24 @@ async function submit_input() {
 	$("#child_token").text(born_event.args.idx.c[0]);
 	$("#child_img").attr("src","dad.png");
 	//*/
-	let hash = web3.utils.keccak256(mother_token+":"+father_token);
+	let hash = web3.utils.keccak256(mother_token+father_token);
 	$("#child_token").val(hash);
-	$("#child_img").attr("src","/img/"+mother_token+":"+father_token);
+	$("#child_img").attr("src","/img/"+hash+":"+hash);
+
+
+	myContract.events.MyEvent({
+	    filter: {myIndexedParam: [20,23], myOtherIndexedParam: '0x123456789...'}, // Using an array means OR: e.g. 20 or 23
+	    fromBlock: 0
+	}, function(error, event){ console.log(event); })
+	.on('data', function(event){
+	    console.log(event); // same results as the optional callback above
+			console.log(event.returnValues);
+			$("#child_token").val(event.returnValues);
+	})
+	.on('changed', function(event){
+	    // remove event from local database
+	})
+	.on('error', console.error);
 
 }
 window.submit_input = submit_input;
