@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>MPCMonsters</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/Navigation-Clean.css">
+    <link rel="stylesheet" href="static/css/styles.css">
+<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-md navigation-clean" style="background-color: #8acae6;">
+        <div class="container"><a class="navbar-brand" href="#" style="background: url(static/img/honeybadger_logo.png) no-repeat;background-size: contain;">&nbsp; &nbsp; &nbsp; &nbsp; MPC Robots</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div
+                class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="https://github.com/initc3/HoneyBadgerMPC">HoneyBadgerMPC</a></li>
+                </ul>
+        </div>
+        </div>
+    </nav>
+    <div class="row">
+        <div class="col d-flex d-md-flex justify-content-center justify-content-md-center" style="background-color: #8acae6;"><img src="static/img/robots.png" style="width: 40%;"></div>
+    </div>
+    <div style="background-color: #e68181;border-style: none;border-top-style: solid;">
+        <div class="container" style="padding: 5px;">
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-center">
+                    <h4 style="color: rgb(255,255,255);">Assemble your own Robot</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="background-color: #e68181;border-bottom-style: solid;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-center">
+                    <p style="text-align: center;color: rgb(255,255,255);">Enter the mom genome and the dad genome in order to assemble their child</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 col-md-6 d-flex flex-column align-items-center" style="background-color: #9ff7a2;border-style: none;border-right-style: solid;border-bottom-style: solid;">
+            <div class="row">
+                <div class="col">
+                    <h5 style="text-align: center;color: rgb(255,255,255);margin: -2px;margin-bottom: -4px;">Mom Public Genome:</h5><a id="mother_private_genome_link" style="font-size: 10px;" href="#">Retrieve the private genome</a></div>
+            </div>
+            <div class="row" style="width: 100%;">
+                <div class="col"><input type="text" id="mother_token" style="width: 100%;margin-bottom: 5px;"></div>
+            </div><img id="mother_img" style="width: 100px;height: 100px;border-style: none;" src="static/img/mom.png"></div>
+        <div class="col-6 col-md-6 d-flex flex-column align-items-center" style="background-color: #dca8ee;border-bottom-style: solid;border-left-style: none;">
+            <div class="row">
+                <div class="col">
+                    <h5 style="text-align: center;color: rgb(255,255,255);margin-bottom: -4px;">Dad Public Genome:</h5><a id="father_private_genome_link" style="font-size: 10px;" href="#">Retrieve the private genome</a></div>
+            </div>
+            <div class="row" style="width: 100%;">
+                <div class="col"><input type="text" id="father_token" style="width: 100%;margin-bottom: 5px;"></div>
+            </div><img id="father_img" style="width: 100px;height: 100px;border-style: none;" src="static/img/dad.png"></div>
+    </div>
+    <div style="background-color: #8acae6;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-center" style="padding: 10px;"><button class="btn btn-warning text-white" id="generate_child" type="button" style="background-color: #f59854;border-style: solid;border-color: rgb(244,109,51);">Assemble Child</button></div>
+            </div>
+        </div>
+    </div>
+    <div style="background-color: #8acae6;border-bottom-style: none;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-center">
+                    <h5 style="text-align: center;color: rgb(255,255,255);margin-bottom: 0px;">Child Public Genome:</h5>
+                </div>
+            </div><a class="d-flex d-md-flex justify-content-center justify-content-md-center" id="child_private_genome_link" style="font-size: 10px;" href="#">Retrieve the private genome</a>
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-center"><input type="text" id="child_token" style="width: 70%;" readonly=""></div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-center"><img id="child_img" style="width: 100px;height: 100px;border-style: none;" src="static/img/child.png"></div>
+            </div>
+        </div>
+    </div>
+    <div style="background-color: #8acae6;">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 col-md-6 text-right d-flex justify-content-center justify-content-md-end">
+                    <p class="text-right" style="text-align: center;color: rgb(255,255,255);margin-top: 16px;margin-bottom: 0px;">Version:</p>
+                </div>
+                <div class="col-6 col-md-6 text-left d-flex justify-content-center justify-content-md-start">
+                    <p class="text-left" id="version" style="text-align: center;color: rgb(255,255,255);margin-top: 16px;margin-bottom: 0px;"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 col-md-6 text-right d-flex justify-content-center justify-content-md-end">
+                    <p class="text-right" style="text-align: center;color: rgb(255,255,255);margin-top: 16px;margin-bottom: 0px;">Account:&nbsp;</p>
+                </div>
+                <div class="col-6 col-md-6 text-left d-flex justify-content-center flex-wrap justify-content-md-start">
+                    <p class="text-left d-flex flex-grow-0 flex-sm-wrap flex-md-wrap" id="default_account" style="text-align: center;color: rgb(255,255,255);margin-top: 16px;margin-bottom: 0px;"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 col-md-6 text-right d-flex justify-content-center justify-content-md-end">
+                    <p class="text-right" style="text-align: center;color: rgb(255,255,255);margin-top: 16px;margin-bottom: 0px;">Block Number:</p>
+                </div>
+                <div class="col-6 col-md-6 text-left d-flex justify-content-center justify-content-md-start">
+                    <p class="text-left" id="block_number" style="text-align: center;color: rgb(255,255,255);margin-top: 16px;margin-bottom: 0px;"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" role="dialog" tabindex="-1" id="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Login with your wallet</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close_modal"><span aria-hidden="true">×</span></button></div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <p>Please autorize your wallet to send transactions.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer"><button class="btn btn-primary" type="button" style="background-color: #f59854;border-color: rgb(244,109,51);">See Private Genome</button></div>
+            </div>
+        </div>
+    </div><div hidden id="robohash-abi">
+[{"constant": true, "inputs": [{"name": "client", "type": "address"}], "name": "query_balance", "outputs": [{"name": "", "type": "string"}, {"name": "", "type": "uint256"}, {"name": "", "type": "string"}, {"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [], "name": "phase2_init", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "", "type": "uint256"}], "name": "inputmask_map", "outputs": [{"name": "", "type": "bool"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [], "name": "reserve_inputmask", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [], "name": "max_phase3_length", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [], "name": "preprocess_used", "outputs": [{"name": "triples", "type": "uint256"}, {"name": "bits", "type": "uint256"}, {"name": "inputmasks", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "rep", "type": "uint256[3]"}], "name": "preprocess_report", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [{"name": "", "type": "address"}], "name": "balances", "outputs": [{"name": "balances_ETH", "type": "uint256"}, {"name": "balances_ERC", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [], "name": "n", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "tokens", "type": "uint256"}], "name": "deposit_erc20", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": false, "inputs": [{"name": "inputmask_idx", "type": "uint256"}, {"name": "masked_input", "type": "bytes32"}], "name": "submit_bid", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [{"name": "", "type": "uint256"}], "name": "bids", "outputs": [{"name": "addr", "type": "address"}, {"name": "masked_amount", "type": "bytes32"}, {"name": "inputmask", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "user_addr", "type": "address[]"}, {"name": "ethBalance", "type": "uint256[]"}, {"name": "ercBalance", "type": "uint256[]"}], "name": "propose_balances", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [], "name": "preprocess", "outputs": [{"name": "triples", "type": "uint256"}, {"name": "bits", "type": "uint256"}, {"name": "inputmasks", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "", "type": "uint256"}], "name": "servers", "outputs": [{"name": "", "type": "address"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [], "name": "this_auction_triples", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [], "name": "phase3_on", "outputs": [{"name": "", "type": "bool"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [], "name": "phase1_init", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "", "type": "uint256"}], "name": "preprocess_reports", "outputs": [{"name": "triples", "type": "uint256"}, {"name": "bits", "type": "uint256"}, {"name": "inputmasks", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [], "name": "this_auction_bits", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [], "name": "t", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [], "name": "initiate_auction_phase", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": false, "inputs": [{"name": "user_addr", "type": "address[]"}, {"name": "ethBalance", "type": "uint256[]"}, {"name": "ercBalance", "type": "uint256[]"}], "name": "updateBalances", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": false, "inputs": [{"name": "amount", "type": "uint256"}], "name": "withdrawERC", "outputs": [], "payable": true, "stateMutability": "payable", "type": "function"}, {"constant": false, "inputs": [], "name": "bids_available", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": false, "inputs": [], "name": "kill_mpc", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": false, "inputs": [{"name": "amount", "type": "uint256"}], "name": "withdrawEth", "outputs": [], "payable": true, "stateMutability": "payable", "type": "function"}, {"constant": true, "inputs": [], "name": "inputmasks_available", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [], "name": "deposit", "outputs": [], "payable": true, "stateMutability": "payable", "type": "function"}, {"constant": true, "inputs": [], "name": "phase3_init", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [], "name": "phase1_length", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [], "name": "round_number", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "client", "type": "address"}, {"name": "idx", "type": "uint256"}], "name": "client_authorized", "outputs": [{"name": "", "type": "bool"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "", "type": "uint256"}], "name": "inputmasks_claimed", "outputs": [{"name": "", "type": "address"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [], "name": "phase2_length", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [], "name": "bids_length", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "", "type": "address"}], "name": "servermap", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"inputs": [{"name": "_servers", "type": "address[]"}, {"name": "_t", "type": "uint256"}, {"name": "_ERC_addr", "type": "address"}], "payable": true, "stateMutability": "payable", "type": "constructor"}, {"anonymous": false, "inputs": [{"indexed": false, "name": "eth", "type": "string"}, {"indexed": false, "name": "etc_balance", "type": "uint256"}, {"indexed": false, "name": "erc", "type": "string"}, {"indexed": false, "name": "erc_balance", "type": "uint256"}], "name": "CheckBalance", "type": "event"}, {"anonymous": false, "inputs": [], "name": "PreProcessUpdated", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": false, "name": "client", "type": "address"}, {"indexed": false, "name": "inputmask_idx", "type": "uint256"}], "name": "InputMaskClaimed", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": false, "name": "idx", "type": "uint256"}, {"indexed": false, "name": "inputmask_idx", "type": "uint256"}, {"indexed": false, "name": "masked_input", "type": "bytes32"}], "name": "MessageSubmitted", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": false, "name": "phase1_start", "type": "uint256"}], "name": "StartedPhase1", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": false, "name": "phase2_start", "type": "uint256"}], "name": "StartedPhase2", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": false, "name": "phase3_start", "type": "uint256"}], "name": "StartedPhase3", "type": "event"}]
+</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    <script src="static/js/wallet.js"></script>
+</body>
+
+</html>

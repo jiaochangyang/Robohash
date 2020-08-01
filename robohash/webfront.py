@@ -217,7 +217,7 @@ class MainHandler(tornado.web.RequestHandler):
         ("Longcat is.. Descriptively named."),
         ("It is fun to have fun, but you have to know meow."),
         ("Who knows the term man-cub but not baby?")]
-        
+
         avatarquotes = [("I'm just here to fix the robots."),
         ("Don't blame me, I tried to deactivate them."),
         ("Don't believe the robot's lies - I do all the work around here."),
@@ -226,7 +226,7 @@ class MainHandler(tornado.web.RequestHandler):
         ("You are awesome, I don't care what anyone says.")]
 
         random.shuffle(drquotes)
-        self.write(self.render_string('templates/root.html',ip=ip,robo=random.choice(robo),drquote1=drquotes[1],drquote2=drquotes[2],quotes=quotes,catquotes=catquotes,avatarquotes=avatarquotes))
+        self.write(self.render_string('templates/index.html'))
 
 class ImgHandler(tornado.web.RequestHandler):
     """
@@ -382,6 +382,10 @@ class ImgHandler(tornado.web.RequestHandler):
             b64ver = b64ver.decode('utf-8')
             self.write("data:image/png;base64," + str(b64ver))
 
+class GUIHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.write(self.render_string('templates/index.html'))
+
 def main():
         tornado.options.parse_command_line()
         # timeout in seconds
@@ -401,7 +405,8 @@ def main():
                 (r"/static/(.*)", tornado.web.StaticFileHandler, {"path": os.path.join(os.path.dirname(__file__),
                 "static/")}),
                 (r"/", MainHandler),
-                (r"/(.*)", ImgHandler),
+                (r"/img/(.*)", ImgHandler),
+                (r"/gui", GUIHandler)
         ], **settings)
 
         http_server = tornado.httpserver.HTTPServer(application,xheaders=True)
